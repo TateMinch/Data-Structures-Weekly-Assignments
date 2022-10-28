@@ -1,0 +1,78 @@
+* Correctly named repository and weekly directory (wa4)
+* Correctly named working file (wa4.cpp)
+* Code Compiles without errors or warnings
+* Simple Tests Pass
+* Complex Tests Pass
+  
+Point Deductions:
+  Binary files in the repo
+  Insert has growth > O(log N)
+  Memory Leaks / Violations      (e.g. valgrind --leak-check=full tests)
+
+Checked but no points deducted yet:
+  Inconsistent code formatting
+  No internal comments
+-------------------------------------------------------------------------------
+Total:  15/15
+
+Notes:
+
+   * This looks quite similar to a number of other submissions.  This isn't
+     the implementation from the text, where did this come from?
+
+Driver Tests (right-right, left-left, right-left, left-right,
+              right-left off root, left-right off root, right-right off root,
+              left-left off root).  1024 random inserts
+
+
+
+PASS
+PASS
+PASS
+PASS
+PASS
+PASS
+PASS
+PASS
+Starting insert of 1024 values 
+PASS
+ 
+Performance:
+Inserts Elapsed_Time
+1024 0.000500369
+2048 0.000750533
+4096 0.00445784
+8192 0.00468302
+16384 0.0242521
+32768 0.0494679
+65536 0.0913495
+131072 0.204466
+262144 0.463927
+524288 1.06492
+1048576 2.42248
+ 
+Memory checking:
+==7143== Memcheck, a memory error detector
+==7143== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==7143== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==7143== Command: driver
+==7143== 
+PASS
+PASS
+PASS
+PASS
+PASS
+PASS
+PASS
+PASS
+Starting insert of 1024 values 
+PASS
+==7143== 
+==7143== HEAP SUMMARY:
+==7143==     in use at exit: 0 bytes in 0 blocks
+==7143==   total heap usage: 3,178 allocs, 3,178 frees, 194,260 bytes allocated
+==7143== 
+==7143== All heap blocks were freed -- no leaks are possible
+==7143== 
+==7143== For counts of detected and suppressed errors, rerun with: -v
+==7143== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

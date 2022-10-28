@@ -1,0 +1,67 @@
+  Correctly named repository and weekly directory (wa5)
+  Correctly named working file (hashTable.cpp)
+  Correctly named class name (HashTable)
+  Code Compiles without errors or warnings
+  Simple Tests Pass
+  Complex Tests Pass
+  Insert works
+  Remove works
+  Rehash works
+  [] works
+  Performance within expected range
+  
+Point Deductions:
+  Binary files in the repo
+  Insert has growth > average O(1)
+  Memory Leaks / Violations      (e.g. valgrind --leak-check=full tests)
+  Inconsistent code formatting
+  No internal comments
+-------------------------------------------------------------------------------
+Total:  0/15
+
+Notes:
+
+   * Does not compile.
+ 
+   * Assignment first commit Sunday 6pm
+
+   * The walkthrough for this assignment is up on the webpage.  You will want
+     to understand this as you'll be responsible for the material.
+
+hashTable.cpp: In member function ‘int& HashTable::operator[](std::__cxx11::string)’:
+hashTable.cpp:65:9: warning: reference to local variable ‘temp’ returned [-Wreturn-local-addr]
+     int temp = 0;
+         ^~~~
+/tmp/ccFKDtyB.o: In function `main':
+performance.cpp:(.text.startup+0x516): undefined reference to `HashTable::size(int) const'
+performance.cpp:(.text.startup+0x533): undefined reference to `HashTable::tableSize() const'
+performance.cpp:(.text.startup+0x10a4): undefined reference to `HashTable::size() const'
+performance.cpp:(.text.startup+0x10cd): undefined reference to `HashTable::size() const'
+performance.cpp:(.text.startup+0x10d7): undefined reference to `HashTable::tableSize() const'
+collect2: error: ld returned 1 exit status
+ 
+Performance:
+Tom Sawyer
+ 
+Performance:
+King Jame's Bible
+ 
+Performance:
+Degenerate word set
+ 
+Performance:
+Dictionary
+ 
+Memory checking:
+hashTable.cpp: In member function ‘int& HashTable::operator[](std::__cxx11::string)’:
+hashTable.cpp:65:9: warning: reference to local variable ‘temp’ returned [-Wreturn-local-addr]
+     int temp = 0;
+         ^~~~
+/tmp/ccCUHPAw.o: In function `main':
+/home/phinker/CSC315/Spring2021/Assignments/Weekly/MinchTate/wa5/performance.cpp:52: undefined reference to `HashTable::tableSize() const'
+/home/phinker/CSC315/Spring2021/Assignments/Weekly/MinchTate/wa5/performance.cpp:53: undefined reference to `HashTable::size(int) const'
+/home/phinker/CSC315/Spring2021/Assignments/Weekly/MinchTate/wa5/performance.cpp:88: undefined reference to `HashTable::size() const'
+/home/phinker/CSC315/Spring2021/Assignments/Weekly/MinchTate/wa5/performance.cpp:88: undefined reference to `HashTable::size() const'
+/home/phinker/CSC315/Spring2021/Assignments/Weekly/MinchTate/wa5/performance.cpp:88: undefined reference to `HashTable::tableSize() const'
+collect2: error: ld returned 1 exit status
+valgrind: performance: command not found

@@ -1,0 +1,43 @@
+*  Disjoint set implementation
+*  Disjoint set path compression
+-  Perfect Maze creation
+-  Code is readable and consistently formated
+
+Possible deductions if present
+-  Memory leaks
+-  Code Crashes
+-  No internal documentation
+   Unnecessary / unwanted files in repo (binary, editor backup, etc.)
+--------------------------------------------------------------------------------
+Total:   10/15
+
+Notes:
+
+   * Only part of the assignment was completed
+
+   * Do not combined interface and implementation unless you are creating
+     a template class.
+
+   * Maze class does not create a perfect maze
+
+   * Maze class not present
+
+Compiling testDisjoint: 
+ 
+Compiling testMaze: 
+g++: error: maze.cpp: No such file or directory
+ 
+Running testDisjoint:
+===============================================================================
+All tests passed (15 assertions in 1 test case)
+
+ 
+Running testDisjoint:
+ 
+Memory checking:
+valgrind: testMaze: command not found
+ 
+Compiling timeMaze: 
+g++: error: maze.cpp: No such file or directory
+Generate Large Maze, testing performance
+../../Grading/wa6Grader.sh: line 28: timeMaze: command not found

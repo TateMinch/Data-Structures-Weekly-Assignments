@@ -1,0 +1,48 @@
+*  Prim's MST
+*  Kruskal's MST
+*  Dijkstra's SSSP
+*  Tests
+--------------------------------------------------------------------------------
+Total: 15/15
+
+Notes:
+
+  * Good job, Tate
+
+Tests:
+Compiling mainDijkstra: 
+ 
+Running mainDijkstra:
+Testing Dijkstra Results
+------------------------
+Slides Wgt
+The Graph Wgt
+Weighted Graph Wgt
+Weighted GraphII Wgt
+Weighted GraphIII Wgt
+Weighted GraphIV Wgt
+ 
+Compiling mainPrim: 
+ 
+Running mainPrim:
+Testing Prims Results
+------------------------
+Slides Wgt
+The Graph Wgt
+Weighted Graph Wgt
+Weighted GraphII Wgt
+Weighted GraphIII Wgt
+Weighted GraphIV Wgt
+ 
+Compiling mainKruskal: 
+ 
+Running mainKruskal:
+Testing Kruskal Results
+------------------------
+Slides Wgt
+The Graph Wgt
+Weighted Graph Wgt
+Weighted GraphII Wgt
+Weighted GraphIII Wgt
+Weighted GraphIV Wgt
+ 

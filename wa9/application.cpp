@@ -1,0 +1,168 @@
+#include "application.h"
+#include <iostream>
+
+using namespace std;
+
+#define VERTEX_RADIUS 10
+
+Application::Application(int width) : width(width), graph(nullptr), pathType(NONE)
+{
+   sAppName = "Application";
+}
+
+// Called once at the start, so create things here
+bool Application::OnUserCreate()
+{
+   graph = new Graph(cin);
+   // Arbitrarily pick the first two vertices in the graph as the start and
+   // end nodes just to have something to show.
+   set<int> vertices = graph->Vertices();
+   set<int>::iterator it = vertices.begin();
+   startNode = (*it);
+   endNode = *(++it);
+
+   cout << "Keyboard Controls:" << endl;
+   cout << "------------------" << endl;
+   cout << "B              - Solve the path using BFS" << endl;
+   cout << "C              - Highlight any bridges or cut-vertices in the graph" << endl;
+   cout << "D              - Solve the path using DFS" << endl;
+   cout << endl;
+   cout << "Mouse Controls:" << endl;
+   cout << "---------------" << endl;
+   cout << "Left mouse up  - move start node (green)" << endl;
+   cout << "Middle mouse up- remove graph edge(s) under mouse pointer" << endl;
+   cout << "Right mouse up - move end node (red)" << endl;
+   cout << endl; 
+   return true;
+}
+
+// Draw the vertices and edges based on the graph.  Vertex name is the
+// pixel coordinate index calculated as x + y * width where width is a
+// parameter to the application.  Default width is 900 and the default
+// window is Width x Width
+void Application::drawGraph()
+{
+   Clear(olc::GREY);
+   for (int v : graph->Vertices())
+      for (int w : graph->adj(v))
+         DrawLine(v % width, v / width, w % width, w / width, olc::WHITE);
+
+   for (int v : graph->Vertices())
+   {
+      olc::Pixel color = olc::CYAN;
+      if (v == startNode) color = olc::GREEN;
+      if (v == endNode) color = olc::RED;
+      FillCircle(v % width, v / width, VERTEX_RADIUS, color);
+   }
+}
+
+// When a mouse button is pushed, find the vertex which was selected
+// and return it
+int Application::cellSelected(bool leftMouse)
+{
+   int x = GetMouseX();
+   int y = GetMouseY();
+   for (int v : graph->Vertices())
+   {
+      int vX = v % width;
+      int vY = v / width;
+      if (sqrt(pow(x-vX,2) + pow(y-vY,2)) <= VERTEX_RADIUS)
+         return v;
+   }
+   return (leftMouse) ? startNode : endNode;
+}
+
+// Try to figure out which edge(s) is close to the mouse click and 
+// remove it / them.  This is a simple bounding box locator which
+// could be improved using perpendicular distance from a point
+// to a line.
+void Application::edgeSelected()
+{
+   int x = GetMouseX();
+   int y = GetMouseY();
+   for (int v : graph->Vertices())
+   {
+      int x1 = v % width;
+      int y1 = v / width;
+      for (int w : graph->adj(v))
+      {
+         int x2 = w % width;
+         int y2 = w / width;
+         // simple bounding box to see if clicked near a line
+         // perpendicular point to a line would probably be more accurate
+         bool notContained = (x1 - x > 0 && x2 - x > 0) || 
+                             (x1 - x < 0 && x2 - x < 0) ||
+                             (y1 - y > 0 && y2 - y > 0) ||
+                             (y1 - y < 0 && y2 - y < 0);
+         if (!notContained)
+            graph->removeEdge(v, w);
+      }
+   }
+}
+
+// Given a list of vertices from the graph, draw a path
+// between them based on the passed in vertex list
+void Application::drawPath(list<int> &path)
+{
+   int v = startNode;
+   for (int w : path)
+   {
+      DrawLine(v % width, v / width, w % width, w / width, olc::BLUE); 
+      v = w;
+   }
+}
+
+// This member function is called repeatedly until the program exits.
+bool Application::OnUserUpdate(float fElapsedTime)
+{
+   static bool cutEdges = false;
+
+   drawGraph();   
+   if (GetMouse(0).bReleased) startNode = cellSelected(true);
+   if (GetMouse(1).bReleased) endNode = cellSelected(false);
+   if (GetMouse(2).bReleased) edgeSelected();
+
+   // Select the traversal algorithm
+   if (GetKey(olc::Key::B).bPressed) pathType = BFS;
+   if (GetKey(olc::Key::D).bPressed) pathType = DFS;
+
+   // Toggle the flag that indicates showing cut-edges or not
+   if (GetKey(olc::Key::C).bPressed)
+   {
+      cutEdges = !cutEdges;
+      pathType = NONE;
+   }
+
+   list<int> path;
+   // If a path type has been chosen, call that client class to
+   // calculate the path and display it
+   if (pathType == BFS)
+   {
+      BFSPaths bfsPaths(graph, startNode);
+      path = bfsPaths.pathTo(endNode);
+      cout << bfsPaths.distance(1000);
+   } else if (pathType == DFS)
+   {
+      DFSPaths dfsPaths(graph, startNode);
+      path = dfsPaths.pathTo(endNode);
+   }
+   // Decide whether bridges should be displayed or not
+   if (cutEdges)
+   {
+      Bridges bridges(graph);
+      for (pair<int, int> &p : bridges.bridges())
+         DrawLine(p.first % width, p.first / width, p.second % width, p.second / width, olc::RED);
+   }
+
+   // Draw the path generated by the traversal method if either was selected
+   drawPath(path);
+
+   return (!(GetKey(olc::Key::ESCAPE).bPressed) &&
+           !(GetKey(olc::Key::Q).bPressed));
+}
+
+bool Application::OnUserDestroy()
+{
+   delete graph;
+   return true;
+}
